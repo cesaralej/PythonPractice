@@ -1,108 +1,112 @@
 import random
 import time
-suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
-ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
-values = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8, 'Nine': 9, 'Ten': 10, 'Jack': 10, 'Queen': 10, 'King': 10, 'Ace': 11}
+from Deck import Deck
+from Player import Player
+
+
+# suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
+# ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
+# values = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8, 'Nine': 9, 'Ten': 10, 'Jack': 10, 'Queen': 10, 'King': 10, 'Ace': 11}
 playing = True
 initialbalance = 5000
 minimumbet = 200
 winmultiplier = 2
 
 
-class Deck:
+# class Deck:
 
-    def __init__(self):
-        self.cards = []
-        for rank in ranks:
-            for suit in suits:
-                self.cards = self.cards + [(rank, suit)]
+#     def __init__(self):
+#         self.cards = []
+#         for rank in ranks:
+#             for suit in suits:
+#                 self.cards = self.cards + [(rank, suit)]
 
-    def shuffle(self):
-        random.shuffle(self.cards)
+#     def shuffle(self):
+#         random.shuffle(self.cards)
 
-    def deal(self):
-        return self.cards.pop()
+#     def deal(self):
+#         return self.cards.pop()
 
-    def __str__(self):
-        deckstring = "This is your deck:\n"
+#     def __str__(self):
+#         deckstring = "This is your deck:\n"
 
-        for card in self.cards:
-            deckstring = deckstring + f"{card[0]} of {card[1]} \n"
+#         for card in self.cards:
+#             deckstring = deckstring + f"{card[0]} of {card[1]} \n"
 
-        return deckstring
+#         return deckstring
 
 
-class Player:
+# class Player:
 
-    def __init__(self, balance, house=False):
-        self.balance = balance
-        self.hand = []
-        self.value = 0
-        self.aces = 0
-        self.house = house
+#     def __init__(self, balance, house=False):
+#         self.balance = balance
+#         self.hand = []
+#         self.value = 0
+#         self.aces = 0
+#         self.house = house
 
-    def bet(self, minbet):
-        while True:
-            bet = input(f"\nYou curently have ${self.balance}. Please type the amount of money you want to bet. \n")
-            try:
-                if self.balance >= int(bet):
-                    if int(bet) >= minbet:
-                        self.balance = self.balance - int(bet)
-                        print("\nBet Accepted!")
-                        return int(bet)
-                        break
-                    else:
-                        print(f"The minimum bet is {minbet}, please enter a higher amount of money!")
-                else:
-                    print("Funds Unavailable, please enter a lower amount of money!")
-                    continue
-            except ValueError:
-                print("Only use numbers!")
-                continue
+#     def bet(self, minbet):
+#         while True:
+#             bet = input(f"\nYou curently have ${self.balance}. Please type the amount of money you want to bet. \n")
+#             try:
+#                 if self.balance >= int(bet):
+#                     if int(bet) >= minbet:
+#                         self.balance = self.balance - int(bet)
+#                         print("\nBet Accepted!")
+#                         return int(bet)
+#                         break
+#                     else:
+#                         print(f"The minimum bet is {minbet}, please enter a higher amount of money!")
+#                 else:
+#                     print("Funds Unavailable, please enter a lower amount of money!")
+#                     continue
+#             except ValueError:
+#                 print("Only use numbers!")
+#                 continue
 
-    def resethand(self):
-        self.hand = []
-        self.aces = 0
+#     def resethand(self):
+#         self.hand = []
+#         self.aces = 0
 
-    def calulatevalue(self):
-        self.value = 0
-        for card in self.hand:
-            self.value = self.value + values[card[0]]
-        if self.aces > 0:
-            while self.value > 21:
-                self.value -= 10
-                self.aces -= 1
+#     def calulatevalue(self):
+#         self.value = 0
+#         for card in self.hand:
+#             self.value = self.value + values[card[0]]
+#         if self.aces > 0:
+#             while self.value > 21:
+#                 self.value -= 10
+#                 self.aces -= 1
 
-    def bust(self):
-        return self.value > 21
+#     def bust(self):
+#         return self.value > 21
 
-    def draw(self, card):
-        self.hand.append(card)
-        if card[0] == "Ace":
-            self.aces += 1
+#     def draw(self, card):
+#         self.hand.append(card)
+#         if card[0] == "Ace":
+#             self.aces += 1
 
-    def win(self, amount):
-        self.balance = self.balance + amount
-        print(f'!!!You won ${amount}!!! Your new balance is ${self.balance}.')
+#     def win(self, amount):
+#         self.balance = self.balance + amount
+#         print(f'!!!You won ${amount}!!! Your new balance is ${self.balance}.')
 
-    def showhand(self):
+#     def showhand(self):
 
-        if self.house == False:
-            print('\nYour current hand is: ')
-            if len(self.hand) > 0:
-                time.sleep(1)
-                for card in self.hand:
-                    print(f'--{card[0]} of {card[1]}')
-                    time.sleep(1)
-            else:
-                print("There are no cards on your hand")
+#         if self.house == False:
+#             print('\nYour current hand is: ')
+#             if len(self.hand) > 0:
+#                 time.sleep(1)
+#                 for card in self.hand:
+#                     print(f'--{card[0]} of {card[1]}')
+#                     time.sleep(1)
+#             else:
+#                 print("There are no cards on your hand")
 
-        else:
-            print("\nThe House's hand is: ")
-            time.sleep(1)
-            for card in self.hand:
-                print(f'--{card[0]} of {card[1]}')
-                time.sleep(1)
+#         else:
+#             print("\nThe House's hand is: ")
+#             time.sleep(1)
+#             for card in self.hand:
+#                 print(f'--{card[0]} of {card[1]}')
+#                 time.sleep(1)
 
 # Ask for replay
 
