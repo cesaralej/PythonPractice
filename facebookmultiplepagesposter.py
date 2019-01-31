@@ -1,5 +1,7 @@
 
 import facebook
+from bs4 import BeautifulSoup
+import requests
 
 # Write here the names of the pages you don't want to post to
 BLACKLIST = []
@@ -29,8 +31,11 @@ def get_api():
 
     pages.sort()
 
+    # Gets the link title from the webpage
+    linktitle = BeautifulSoup(requests.get(LINK).text, 'html.parser').title.string
+
     # Posts on each page
-    if input(f"Are you sure you want to post {LINK} on {len(pages)-len(BLACKLIST)} pages? ") == 'y':
+    if input(f'Are you sure you want to post "{linktitle}" on {len(pages)-len(BLACKLIST)} pages? ') == 'y':
 
         count = 0
         for page in pages:
