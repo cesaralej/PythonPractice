@@ -4,13 +4,11 @@ from Deck import Deck
 from Player import Player
 
 
-
 playing = True
 initialbalance = 5000
 minimumbet = 200
 winmultiplier = 2
-
-
+WAIT_TIME = 0.3
 
 
 # Ask for replay
@@ -60,13 +58,13 @@ while playing:
             house.draw(deck.deal())
             house.draw(deck.deal())
             house.calulatevalue()
-            house.showhand()
+            house.showhand(WAIT_TIME)
 
             # initial player draw
             player.draw(deck.deal())
             player.draw(deck.deal())
             player.calulatevalue()
-            player.showhand()
+            player.showhand(WAIT_TIME)
 
             # Hit or Stand loop
             while True:
@@ -79,16 +77,16 @@ while playing:
                     newcard = deck.deal()
                     player.draw(newcard)
                     player.calulatevalue()
-                    time.sleep(1)
+                    time.sleep(WAIT_TIME)
                     print('\nYour new card is...')
-                    time.sleep(1)
+                    time.sleep(WAIT_TIME)
                     print(f'--{newcard[0]} of {newcard[1]}')
 
                     # Check if bust
                     if player.bust():
-                        time.sleep(1)
+                        time.sleep(WAIT_TIME)
                         print('\n!!!Bust!!! ')
-                        time.sleep(1)
+                        time.sleep(WAIT_TIME)
                         bust = True
                         break
 
@@ -113,16 +111,16 @@ while playing:
                     newcard = deck.deal()
                     house.draw(newcard)
                     house.calulatevalue()
-                    time.sleep(1)
+                    time.sleep(WAIT_TIME)
                     print("\nThe House's new card is...")
-                    time.sleep(1)
+                    time.sleep(WAIT_TIME)
                     print(f'--{newcard[0]} of {newcard[1]}')
 
                     # Check if bust
                     if house.bust():
-                        time.sleep(1)
+                        time.sleep(WAIT_TIME)
                         print('\n!!!Bust for The House!!!')
-                        time.sleep(1)
+                        time.sleep(WAIT_TIME)
                         housebust = True
                         player.win(bet * winmultiplier)
                 # house loop end

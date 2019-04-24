@@ -1,6 +1,6 @@
 import time
 
-values = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8, 'Nine': 9, 'Ten': 10, 'Jack': 10, 'Queen': 10, 'King': 10, 'Ace': 11}
+VALUES = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8, 'Nine': 9, 'Ten': 10, 'Jack': 10, 'Queen': 10, 'King': 10, 'Ace': 11}
 
 
 class Player:
@@ -38,7 +38,7 @@ class Player:
     def calulatevalue(self):
         self.value = 0
         for card in self.hand:
-            self.value = self.value + values[card[0]]
+            self.value = self.value + VALUES[card[0]]
         if self.aces > 0:
             while self.value > 21:
                 self.value -= 10
@@ -56,21 +56,21 @@ class Player:
         self.balance = self.balance + amount
         print(f'!!!You won ${amount}!!! Your new balance is ${self.balance}.')
 
-    def showhand(self):
+    def showhand(self, waittime):
 
         if self.house == False:
             print('\nYour current hand is: ')
             if len(self.hand) > 0:
-                time.sleep(1)
+                time.sleep(waittime)
                 for card in self.hand:
                     print(f'--{card[0]} of {card[1]}')
-                    time.sleep(1)
+                    time.sleep(waittime)
             else:
                 print("There are no cards on your hand")
 
         else:
             print("\nThe House's hand is: ")
-            time.sleep(1)
+            time.sleep(waittime)
             for card in self.hand:
                 print(f'--{card[0]} of {card[1]}')
-                time.sleep(1)
+                time.sleep(waittime)
